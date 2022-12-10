@@ -16,6 +16,29 @@ This yields
 
 > The fifth triangular number is 15.
 
+The value that's returned by the Lua code is spliced back into the
+document. The `=` character can be used as a shorthand for
+`return` when placed at the beginning of an expression.
+
+``` xml
+<?lua =1 + 2 ?>
+```
+
+The filter tries to detect when the `return` has been omitted and
+inserts it automatically in that case. Therefore, the above can be
+shortened to
+
+``` xml
+<?lua 1 + 2 ?>
+```
+
+**Note*** that pandoc isn't an XML processor, and the processing
+instruction is terminated by a single `>`. Use the “raw attribute”
+syntax if your code contains that character:
+
+    ```{=html}
+    <?lua return 1 > 0 and 'all is well' ?>
+    ```
 
 [CI badge]: https://img.shields.io/github/workflow/status/pandoc-ext/run-lua/CI?logo=github
 [CI workflow]: https://github.com/pandoc-ext/run-lua/actions/workflows/ci.yaml

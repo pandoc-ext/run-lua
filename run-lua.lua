@@ -1,12 +1,21 @@
 local function run_lua (cmd, constr)
   -- allow `=` as a shorthand for `return`.
   cmd = cmd:gsub('^%s*=', 'return ')
-  local success, result = pcall(
-    function ()
-      return load(cmd)()
+  local chunkfn, err = load(cmd)
+  -- Try again if the return is missing
+  if chunkfn == nil then
+    chunkfn, err = load('return ' .. cmd)
+    -- still getting an error. Bail out
+    if chunkfn == nil then
+      return constr(tostring(err))
     end
-  )
-  if not success then return tostring(result) end
+  end
+
+  local success, result = pcall(chunkfn)
+
+  if not success then
+    return constr(tostring(result))
+  end
 
   local elements
   success, elements = pcall(constr, result)
