@@ -14,15 +14,13 @@ test-%: $(FILTER_FILE) test/input-%.md test/test-%.yaml
 	@$(PANDOC) --defaults test/test-$*.yaml | \
 	    $(DIFF) test/expected-$*.md -
 
-test/expected-%: $(FILTER_FILE) test/input-%.md test/test-%.yaml
-	@$(PANDOC) --defaults test/test-$*.yaml --output=test/$@
-
 # Ensure that the `test` target is run each time it's called.
 .PHONY: test
+test: test-inline test-block
 
 # Re-generate the expected output. This file **must not** be a
 # dependency of the `test` target, as that would cause it to be
 # regenerated on each run, making the test pointless.
-test/expected.native: $(FILTER_FILE) test/input.md test/test.yaml
-	$(PANDOC) --defaults test/test.yaml --output=$@
+test/expected-%: $(FILTER_FILE) test/input-%.md test/test-%.yaml
+	@$(PANDOC) --defaults test/test-$*.yaml --output=test/$@
 
