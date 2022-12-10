@@ -33,16 +33,19 @@ local function get_code (raw)
   return nil
 end
 
-function RawInline (raw)
-  local code = get_code(raw)
-  if code then
-    return run_lua(code, pandoc.Inlines)
-  end
-end
-
-function RawBlock (raw)
-  local code = get_code(raw)
-  if code then
-    return run_lua(code, pandoc.Blocks)
-  end
-end
+return {
+  {
+    RawInline = function (raw)
+      local code = get_code(raw)
+      if code then
+        return run_lua(code, pandoc.Inlines)
+      end
+    end,
+    RawBlock = function (raw)
+      local code = get_code(raw)
+      if code then
+        return run_lua(code, pandoc.Blocks)
+      end
+    end
+  }
+}
