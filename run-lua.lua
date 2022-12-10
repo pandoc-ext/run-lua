@@ -16,12 +16,19 @@ local function run_lua (cmd, constr)
 end
 
 local function get_code (str)
-  return str:match '^%<%?lua (.*)%?%>'
+  return str:match '^%<%?lua%s+(.*)%?%>'
 end
 
 function RawInline (raw)
   local code = get_code(raw.text)
   if code and raw.format:match '^html' then
     return run_lua(code, pandoc.Inlines)
+  end
+end
+
+function RawBlock (raw)
+  local code = get_code(raw.text)
+  if code and raw.format:match '^html' then
+    return run_lua(code, pandoc.Blocks)
   end
 end
