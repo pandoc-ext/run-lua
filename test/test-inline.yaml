@@ -1,0 +1,4 @@
+input-files: ['test/input-inline.md']
+filters:
+  - run-lua.lua
+to: 'markdown'
