@@ -24,20 +24,25 @@ local function run_lua (cmd, constr)
     or select(2, pcall(tostring, result))
 end
 
-local function get_code (str)
-  return str:match '^%<%?lua%s+(.*)%?%>'
+local function get_code (raw)
+  if raw.format:match 'html' then
+    return raw.text:match '^%<%?lua%s+(.*)%?%>'
+  elseif raw.format:match 'run[-_]?lua' then
+    return raw.text
+  end
+  return nil
 end
 
 function RawInline (raw)
-  local code = get_code(raw.text)
-  if code and raw.format:match '^html' then
+  local code = get_code(raw)
+  if code then
     return run_lua(code, pandoc.Inlines)
   end
 end
 
 function RawBlock (raw)
-  local code = get_code(raw.text)
-  if code and raw.format:match '^html' then
+  local code = get_code(raw)
+  if code then
     return run_lua(code, pandoc.Blocks)
   end
 end

@@ -32,12 +32,26 @@ shortened to
 <?lua 1 + 2 ?>
 ```
 
+Raw attributes syntax with format `run-lua` or `runlua` can be
+used as an alternative to the processing-instructions-based
+syntax.
+
+For example,
+
+`````markdown
+𝜋 ≈ `math.pi`{=runlua}
+`````
+
+yields
+
+> 𝜋 ≈ 3.1415926535898
+
 **Note*** that pandoc isn't an XML processor, and the processing
 instruction is terminated by a single `>`. Use the “raw attribute”
 syntax if your code contains that character:
 
-    ```{=html}
-    <?lua return 1 > 0 and 'all is well' ?>
+    ```{=runlua}
+    return 1 > 0 and 'all is well'
     ```
 
 [CI badge]: https://img.shields.io/github/workflow/status/pandoc-ext/run-lua/CI?logo=github

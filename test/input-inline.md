@@ -6,3 +6,5 @@ We use the <?lua =pandoc.Code('return', {class='lua'})?> keyword to return a
 value.
 
 One plus two is <?lua 1+2 ?>.
+
+This one uses `'raw' .. ' ' .. 'attributes'`{=run-lua} syntax.

@@ -12,3 +12,11 @@ end
 return pandoc.Para(result)
 ?>
 
+
+```{=run-lua}
+return pandoc.Para(
+  pandoc.Inlines('This uses ') ..
+  {pandoc.Quoted('DoubleQuote', 'raw attributes')} ..
+  pandoc.Inlines ' syntax.'
+)
+```
