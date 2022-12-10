@@ -1,15 +1,18 @@
-local function run_lua (cmd)
-  local success, thunk = pcall(load, cmd)
-  if success then
-    local result
-    success, result = pcall(thunk)
-    return type(result) == 'number'
-      and tostring(result)
-      or result
-  else
-    -- return error message
-    return thunk
-  end
+local function run_lua (cmd, constr)
+  -- allow `=` as a shorthand for `return`.
+  cmd = cmd:gsub('^%s*=', 'return ')
+  local success, result = pcall(
+    function ()
+      return load(cmd)()
+    end
+  )
+  if not success then return tostring(result) end
+
+  local elements
+  success, elements = pcall(constr, result)
+  return success
+    and elements
+    or select(2, pcall(tostring, result))
 end
 
 local function get_code (str)
@@ -19,6 +22,6 @@ end
 function RawInline (raw)
   local code = get_code(raw.text)
   if code and raw.format:match '^html' then
-    return run_lua(code)
+    return run_lua(code, pandoc.Inlines)
   end
 end
