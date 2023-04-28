@@ -54,7 +54,7 @@ syntax if your code contains that character:
     return 1 > 0 and 'all is well'
     ```
 
-[CI badge]: https://img.shields.io/github/workflow/status/pandoc-ext/run-lua/CI?logo=github
+[CI badge]: https://img.shields.io/github/actions/workflow/status/pandoc-ext/run-lua/ci.yaml?branch=main&logo=github
 [CI workflow]: https://github.com/pandoc-ext/run-lua/actions/workflows/ci.yaml
 
 
