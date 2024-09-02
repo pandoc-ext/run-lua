@@ -1,0 +1,11 @@
+input-files:
+  - test/perevirky/01-intro.md
+  - test/perevirky/02-shorthand-equal.md
+  - test/perevirky/03-no-return.md
+  - test/perevirky/04-raw-attributes-inline.md
+  - test/perevirky/10-usage.md
+  - test/perevirky/99-license.md
+
+to: gfm
+markdown-headings: setext
+columns: 66

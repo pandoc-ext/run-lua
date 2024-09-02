@@ -11,3 +11,7 @@ test-%: $(FILTER_FILE) test/input-%.md test/test-%.yaml
 # Check expected results with perevir
 test:
 	pandoc lua test/runtests.lua test/perevirky/
+
+# Generate README.md from perevirky files.
+README.md: test/docs.yaml $(wildcard test/perevirky/*.md)
+	pandoc -d test/docs --output=README.md

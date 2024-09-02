@@ -1,5 +1,5 @@
 run-lua
-==================================================================
+=======
 
 Executes any Lua command in a `lua` XML processing instruction and
 includes the result in the document.
@@ -7,28 +7,46 @@ includes the result in the document.
 Example:
 
 ``` markdown
-The fifth triangular number is <?lua return 1 + 2 + 3 + 4 + 5?>.
+The number <?lua return 1 + 2 + 3 + 4 + 5?> is the fifth triangular number.
 ```
 
 This yields
 
-> The fifth triangular number is 15.
+> <div id="output">
+>
+> The number 15 is the fifth triangular number.
+>
+> </div>
 
-The value that's returned by the Lua code is spliced back into the
+The value that’s returned by the Lua code is spliced back into the
 document. The `=` character can be used as a shorthand for
 `return` when placed at the beginning of an expression.
 
 ``` xml
-<?lua =1 + 2 ?>
+1 + 2 = <?lua =1 + 2 ?>
 ```
+
+Result:
+
+> <div id="output">
+>
+> 1 + 2 = 3
+>
+> </div>
 
 The filter tries to detect when the `return` has been omitted and
 inserts it automatically in that case. Therefore, the above can be
 shortened to
 
 ``` xml
-<?lua 1 + 2 ?>
+1 + 2 = <?lua 1 + 2 ?>
 ```
+
+> <div id="output">
+>
+> 1 + 2 = 3
+>
+> </div>
 
 Raw attributes syntax with format `run-lua` or `runlua` can be
 used as an alternative to the processing-instructions-based
@@ -36,15 +54,23 @@ syntax.
 
 For example,
 
-`````markdown
-𝜋 ≈ `math.pi`{=runlua}
-`````
+``` markdown
+𝜋 ≈ `math.pi`{=run-lua}
+
+𝜏 ≈ `2 * math.pi`{=runlua}
+```
 
 yields
 
+> <div id="output">
+>
 > 𝜋 ≈ 3.1415926535898
+>
+> 𝜏 ≈ 6.2831853071796
+>
+> </div>
 
-**Note** that pandoc isn't an XML processor, and the processing
+**Note** that pandoc isn’t an XML processor, and the processing
 instruction is terminated by a single `>`. Use the “raw attribute”
 syntax if your code contains that character:
 
@@ -52,12 +78,8 @@ syntax if your code contains that character:
     return 1 > 0 and 'all is well'
     ```
 
-[CI badge]: https://img.shields.io/github/actions/workflow/status/pandoc-ext/run-lua/ci.yaml?branch=main&logo=github
-[CI workflow]: https://github.com/pandoc-ext/run-lua/actions/workflows/ci.yaml
-
-
 Usage
-------------------------------------------------------------------
+-----
 
 The filter modifies the internal document representation; it can
 be used with many publishing systems that are based on pandoc.
@@ -75,8 +97,8 @@ Users of Quarto can install this filter as an extension with
 
     quarto install extension pandoc-ext/run-lua
 
-and use it by adding `run-lua` to the `filters` entry
-in their YAML header.
+and use it by adding `run-lua` to the `filters` entry in their
+YAML header.
 
 ``` yaml
 ---
@@ -100,7 +122,7 @@ output:
 ```
 
 License
-------------------------------------------------------------------
+-------
 
 This pandoc Lua filter is published under the MIT license, see
 file `LICENSE` for details.

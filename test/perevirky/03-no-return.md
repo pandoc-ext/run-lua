@@ -6,12 +6,8 @@ shortened to
 1 + 2 = <?lua 1 + 2 ?>
 ```
 
-<details>
-
 > <div id="output">
 >
 > 1 + 2 = 3
 >
 > </div>
-
-</details>

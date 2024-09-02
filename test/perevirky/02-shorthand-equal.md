@@ -6,8 +6,6 @@ document. The `=` character can be used as a shorthand for
 1 + 2 = <?lua =1 + 2 ?>
 ```
 
-<details>
-
 Result:
 
 > <div id="output">
@@ -15,5 +13,3 @@ Result:
 > 1 + 2 = 3
 >
 > </div>
-
-</details>
