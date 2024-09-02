@@ -1,8 +1,6 @@
 run-lua
 ==================================================================
 
-[![GitHub build status][CI badge]][CI workflow]
-
 Executes any Lua command in a `lua` XML processing instruction and
 includes the result in the document.
 
