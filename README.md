@@ -46,7 +46,7 @@ yields
 
 > 𝜋 ≈ 3.1415926535898
 
-**Note*** that pandoc isn't an XML processor, and the processing
+**Note** that pandoc isn't an XML processor, and the processing
 instruction is terminated by a single `>`. Use the “raw attribute”
 syntax if your code contains that character:
 
